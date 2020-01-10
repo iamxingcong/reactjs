@@ -1,25 +1,25 @@
-import React from 'react';
 
-import './App.css';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import React, { Suspense } from 'react';
 
-import { add } from './pg/math.js';
+const Home = React.lazy(() => import('./routes/Home'));
 
-import OtherComponent from './pg/OtherComponent';
-
-
-console.log(add(16, 26)); // 42
+const About = React.lazy(() => import('./routes/About'));
 
 
 
 function App() {
   return (
-    <div className="App">
-	 	<OtherComponent />
-    	
-       
-     	 <h1> 上面是react js 文件引用的形式，可以了解下，很方便呢 ，是不是</h1>
-    
-    </div>
+   <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+		<Link to="/">Home</Link>
+		<Link to="/about"> about </Link>
+		<Switch>
+			<Route exact path="/" component={Home}/>
+			<Route path="/about" component={About}/>
+		</Switch>
+    </Suspense>
+  </Router>
   );
 }
 
