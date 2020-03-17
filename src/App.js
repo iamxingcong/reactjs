@@ -23,7 +23,7 @@ function App() {
 <Router>
     <Layout   style={{ minHeight: '100vh' }}>
     <Header>
-      <h1 className='titlex'> headerx </h1>
+      <h1 className='titlex'> admin 音乐管理平台 </h1>
     </Header>
     <Layout>
       <Sider width='160'>
@@ -32,13 +32,13 @@ function App() {
           <Menu.Item key="1">
             <PieChartOutlined />
             <Link to="/Topics">
-                <span>机房管理</span>
+                <span> 数据统计 </span>
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
             <DesktopOutlined />
             <Link to="/Home">
-                <span>sfsd</span>
+                <span> 音乐管理 </span>
             </Link>
           </Menu.Item>
         </Menu>
