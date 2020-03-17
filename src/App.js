@@ -1,28 +1,70 @@
 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import React, { Suspense } from 'react';
+import React from 'react';
+import { Layout, Menu} from 'antd';
+import {
+  DesktopOutlined,
+  PieChartOutlined,
+} from '@ant-design/icons';
+
 import './App.css';
-
-const Home = React.lazy(() => import('./routes/Home'));
-
-const About = React.lazy(() => import('./routes/About'));
-
+import 'antd/dist/antd.css';
+import Topics from './routes/Topics.js'
+import Home from './routes/Home.js'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+const { Header, Sider, Content } = Layout;
 
 function App() {
   return (
-   <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-    	<div id='menu'>
-		<Link to="/">Home</Link>
-		<Link to="/about"> about </Link>
-		</div>
-		<Switch>
-			<Route exact path="/" component={Home}/>
-			<Route path="/about" component={About}/>
-		</Switch>
-    </Suspense>
+<Router>
+    <Layout   style={{ minHeight: '100vh' }}>
+    <Header>
+      <h1 className='titlex'> headerx </h1>
+    </Header>
+    <Layout>
+      <Sider width='160'>
+        
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu.Item key="1">
+            <PieChartOutlined />
+            <Link to="/Topics">
+                <span>机房管理</span>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <DesktopOutlined />
+            <Link to="/Home">
+                <span>sfsd</span>
+            </Link>
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Content>
+      <Switch>
+          <Route exact path="/Home">
+            <Home />
+          </Route>
+          <Route path="/Topics">
+            <Topics />
+          </Route>
+           
+        </Switch>
+      </Content>
+       
+    </Layout>
+   
+  </Layout>
+    
   </Router>
-  );
+   
+  );  
 }
+
+
+ 
 
 export default App;

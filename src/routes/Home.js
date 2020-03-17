@@ -1,8 +1,10 @@
-
 import React  from 'react';
+ 
 function Home() {
-	return (
-		<div>老子是home</div>
-	)
+  return ( 
+      <div>
+        <h1> 是的烦烦烦烦烦烦 </h1>
+      </div>
+  );
 }
-export default Home
+export default  Home;
