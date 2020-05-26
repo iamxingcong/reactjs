@@ -2,12 +2,13 @@ import React  from 'react';
 import { Table } from 'antd';
 const columns = [
   {
-    title: 'uuid',
-    dataIndex: 'uuid',
+    title: '音乐名称',
+    dataIndex: 'music_id',
+    key: 'music_id'
   },
   
 ];
-const data = []
+var data = []
 class Home extends React.Component {
  
   constructor(props) {
@@ -27,7 +28,12 @@ class Home extends React.Component {
       .then(
         
         (r) => {
-     
+            for (var i = 0; i < r.results.length; i++) {
+              r.results[i].key = i
+              data.push( r.results[i] )
+               
+            }
+            
             this.setState({
               isLoaded: true,
               items: r.results
@@ -62,14 +68,14 @@ class Home extends React.Component {
     } else {
       return (
         <div>
-        <Table columns={columns} dataSource={data} size="small" />
-        <ul>
+        <Table columns={columns} dataSource={ data } size="small" /> 
+         <ul>
           {items.map(item => (
-            <li key={item.music_id}>
+            <li key={ item.music_id }>
               {item.music_id}
             </li>
           ))}
-        </ul>
+        </ul> 
         </div>
       );
     }
