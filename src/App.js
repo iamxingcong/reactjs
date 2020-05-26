@@ -28,7 +28,7 @@ function App() {
     <Layout>
       <Sider width='160'>
         
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Menu theme="dark" defaultSelectedKeys={['2']} mode="inline">
           <Menu.Item key="1">
             <PieChartOutlined />
             <Link to="/Topics">
