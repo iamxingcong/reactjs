@@ -1,5 +1,5 @@
 {
-  "proxy": "http://docs.cmusiccopyright.com/",
+  "proxy": "http://localhost:3000/",
   "name": "0316",
   "version": "0.1.0",
   "private": true,
