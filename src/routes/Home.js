@@ -1,5 +1,5 @@
 import React  from 'react';
-import { Table, Button, Modal, Form, Input, Checkbox  } from 'antd';
+import { Table, Button, Modal, Form, Input } from 'antd';
 const columns = [
   {
     title: '音乐名称',
@@ -67,44 +67,64 @@ class Home extends React.Component {
 
   onFinish = values =>  {
     console.log('Success:', values);
+ 
+    fetch("/adds", {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+        body: 'name=' + values.name + '&url=' + values.url + '&alexa=' + values.alexa + '&country=' + values.country
+ 
+      })
+      .then((response)=>response.json())
+      .then((responseJsonData)=>{
+        this.setState({
+          visible: false,
+        });
+        this.getAll()
+        console.log(responseJsonData);
+      })
+      .catch((error)=>{
+        alert(error);
+      })
   };
 
  onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
   };
 
+  getAll = () => {
+    fetch("/getall")
+    
+    .then(res => res.json())
+    .then((r) => {
+          data = []
 
+          for (var i = 0; i < r.length; i++) {
+            r[i].key = i
+            data.push( r[i] )
+          }
+          
+          this.setState({
+            isLoaded: true,
+            items: r
+          });
+   
+      })
+      .catch((error) => {
+        console.log('错误了')
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      })
+  }
 
   componentDidMount() {
   
-      fetch("/getall")
-    
-      .then(res => res.json())
-      .then(
-        
-        (r) => {
-            for (var i = 0; i < r.length; i++) {
-              r[i].key = i
-              data.push( r[i] )
-            }
-            
-            this.setState({
-              isLoaded: true,
-              items: r
-            });
-     
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          console.log('错误了')
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+    this.getAll()
   }
   componentWillUnmount() {
     this.setState = (state, callback) => {
@@ -113,8 +133,8 @@ class Home extends React.Component {
     }
   }
   handleClick (v) {
-    
-    fetch('/add', {
+    var that = this
+    fetch('/del', {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',
@@ -124,6 +144,7 @@ class Home extends React.Component {
       body: 'id=' + v
     }).then(function(response) {
       console.log(response);
+      that.getAll()
     });
 
   }
@@ -163,23 +184,35 @@ class Home extends React.Component {
                 onFinishFailed={this.onFinishFailed}
               >
                 <Form.Item
-                  label="Username"
-                  name="username"
-                  rules={[{ required: true, message: 'Please input your username!' }]}
+                  label="name"
+                  name="name"
+                  rules={[{ required: true, message: 'Please input your name!' }]}
                 >
                   <Input />
                 </Form.Item>
 
                 <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[{ required: true, message: 'Please input your password!' }]}
+                  label="url"
+                  name="url"
+                  rules={[{ required: true, message: 'Please input your url!' }]}
                 >
-                  <Input.Password />
+                  <Input />
                 </Form.Item>
 
-                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                  <Checkbox>Remember me</Checkbox>
+                <Form.Item
+                  label="alexa"
+                  name="alexa"
+                  rules={[{ required: true, message: 'Please input your alexa!' }]}
+                >
+                  <Input />
+                </Form.Item>
+
+                <Form.Item
+                  label="country"
+                  name="country"
+                  rules={[{ required: true, message: 'Please input your country!' }]}
+                >
+                  <Input />
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
