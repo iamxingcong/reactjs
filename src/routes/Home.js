@@ -51,6 +51,7 @@ class Home extends React.Component {
   };
   handleOk = e => {
     console.log(e);
+   
     this.setState({
       visible: false,
     });
@@ -174,6 +175,7 @@ class Home extends React.Component {
             visible={this.state.visible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
+            footer={null}
           >
             
             <Form
