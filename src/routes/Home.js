@@ -1,6 +1,8 @@
 import React  from 'react';
 import { Table, Button, Modal, Form, Input } from 'antd';
-const columns = [
+var data = []
+
+var columns = [
   {
     title: '音乐名称',
     dataIndex: 'name',
@@ -15,13 +17,29 @@ const columns = [
     title: 'url',
     dataIndex: 'url',
     key: 'id'
+  },
+  {
+    title: 'ID',
+    dataIndex: 'id',
+    key: 'id'
+  },
+  {
+    title: '国家',
+    dataIndex: 'country',
+    key: 'id'
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text, record) => (
+      <Button type="primary" >
+      Click me!
+    </Button>
+    ),
   }
 ];
-var data = []
 
-
-
-
+ 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -34,6 +52,9 @@ const tailLayout = {
 
 class Home extends React.Component {
  
+
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -158,7 +179,7 @@ class Home extends React.Component {
     } else {
       return (
         <div>
-           <Button type="primary"  onClick={this.showModal}> 添加 </Button>
+          <Button type="primary"  onClick={this.showModal}> 添加 </Button>
           <Table columns={columns} dataSource={ data } size="small" /> 
           <ul>
             {items.map(item => (
